@@ -12,7 +12,6 @@ Original file is located at
 import streamlit as st
 import pandas as pd
 import altair as alt
-import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title="Dashboard",
@@ -26,7 +25,7 @@ col = st.columns((1.5, 4.5, 2), gap='medium')
 
 with col[0]:
     st.markdown('#### Monthly income trend of students')
-    plt.figure(figsize=(15, 8))
+    alt.figure(figsize=(15, 8))
 
 # ค่าที่ต้องการเปลี่ยน
 replace_values = {'ชั้นปีที่ 1 (รหัสนักศึกษาขึ้นต้นด้วย 66)': 'ชั้นปีที่ 1',
@@ -69,20 +68,20 @@ ax = sns.countplot(y='คุณมีรายได้ต่อเดือน�
 
 for p in ax.patches:
     width = p.get_width()
-    plt.text(width,
+    alt.text(width,
              p.get_y() + p.get_height()/2,
              '{:1.0f}'.format(width),
              ha="left",
              va="center")
 
 # กำหนดรายละเอียดกราฟ
-plt.title('แนวโน้มรายได้ต่อเดือนของนักศึกษา โดยแบ่งตามชั้นปีที่ศึกษา')
-plt.xlabel('จำนวนนักศึกษา')
-plt.ylabel('รายได้ต่อเดือน (บาท)')
-plt.tight_layout()
+alt.title('แนวโน้มรายได้ต่อเดือนของนักศึกษา โดยแบ่งตามชั้นปีที่ศึกษา')
+alt.xlabel('จำนวนนักศึกษา')
+alt.ylabel('รายได้ต่อเดือน (บาท)')
+alt.tight_layout()
 
 # แสดง legend ที่ไม่ทับกราฟ
-plt.legend(title='ชั้นปีที่', bbox_to_anchor=(1.05, 1), loc='upper left')
+alt.legend(title='ชั้นปีที่', bbox_to_anchor=(1.05, 1), loc='upper left')
 
 # แสดงกราฟ
-plt.show()
+alt.show()
