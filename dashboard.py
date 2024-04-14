@@ -71,3 +71,4 @@ chart = alt.Chart(df_new).mark_bar().encode(
     title='แนวโน้มรายได้ต่อเดือนของนักศึกษา โดยแบ่งตามชั้นปีที่ศึกษา'
 )
 
+st.altair_chart(chart, use_container_width=True)
