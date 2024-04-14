@@ -298,7 +298,7 @@ def make_heatmap(input_df, input_y, input_color, input_color_theme):
         titleFontSize=12
     )
     return heatmap
-heatmap = make_heatmap(grouped_10, 'คณะที่คุณกำลังศึกษา', 'จำนวนนักศึกษา', 'Blues')
+
 
 with col[0]:
     st.altair_chart(chart2, use_container_width=True)
@@ -309,6 +309,6 @@ with col[1]:
     st.altair_chart(chart6, use_container_width=True)
     st.altair_chart(chart8, use_container_width=True)
     st.altair_chart(chart9, use_container_width=True)
+    heatmap = make_heatmap(grouped_10, 'คณะที่คุณกำลังศึกษา', 'จำนวนนักศึกษา', 'Blues')
     st.altair_chart(heatmap, use_container_width=True)
-
 
