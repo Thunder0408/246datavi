@@ -9,32 +9,6 @@ Original file is located at
 # Import Library And Font
 """
 
-!wget -q https://github.com/Phonbopit/sarabun-webfont/raw/master/fonts/thsarabunnew-webfont.ttf
-
-!wget -q https://github.com/google/fonts/blob/main/ofl/chonburi/Chonburi-Regular.ttf
-
-!pip install pythainlp
-
-import gspread
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib
-import matplotlib as mpl
-import matplotlib.ticker as mtick
-import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-import matplotlib.patheffects as pe
-from mpl_toolkits import mplot3d
-from mpl_toolkits.mplot3d import Axes3D
-from google.auth import default
-from google.colab import auth
-import matplotlib.font_manager as fm
-from wordcloud import WordCloud
-from pythainlp.tokenize import word_tokenize # เป็นตัวตัดคำของภาษาไทย
-from pythainlp.corpus import thai_stopwords # เป็นคลัง Stop Words ของภาษาไทย
-from collections import Counter
-import random
 
 mpl.font_manager.fontManager.addfont('thsarabunnew-webfont.ttf')
 mpl.rc('font', family='TH Sarabun New')
@@ -44,8 +18,6 @@ font = fm.FontProperties(fname=font_path, size=16)
 
 """#Import csv"""
 
-from google.colab import drive
-drive.mount('/content/drive')
 
 df = pd.read_csv('/content/drive/MyDrive/แบบสำรวจพฤติกรรมการใช้จ่ายของนักศึกษามหาวิทยาลัยธรรมศาสตร์.csv')
 # Code for making the first row as header. Remove if not needed.
@@ -187,7 +159,6 @@ fig.show()
 import streamlit as st
 import pandas as pd
 import altair as alt
-import plotly.express as px
 
 st.set_page_config(
     page_title="US Population Dashboard",
