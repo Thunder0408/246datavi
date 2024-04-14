@@ -16,12 +16,6 @@ df
 
 """# Install Dashboard"""
 
-pip install streamlit-shadcn-ui
-
-pip install streamlit-extras
-
-pip install streamlit-elements==0.1.*
-
 import streamlit as st
 import pandas as pd
 import altair as alt
