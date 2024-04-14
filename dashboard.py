@@ -279,9 +279,10 @@ chart9 = alt.Chart(df).mark_bar().encode(
 )
 
 grouped_10 = df.groupby(["คณะที่คุณกำลังศึกษา"]).size().reset_index(name="จำนวนนักศึกษา")
+
 def make_heatmap(input_df, input_y, input_color, input_color_theme):
     num_faculties = input_df[input_y].nunique()
-    chart_height = num_faculties * 20
+    chart_height = num_faculties * 20  
 
     heatmap = alt.Chart(input_df).mark_rect().encode(
         y=alt.Y(f'{input_y}:O', axis=alt.Axis(title=input_y, titleFontSize=18, titlePadding=15, titleFontWeight=900, labelAngle=0)),
@@ -292,13 +293,16 @@ def make_heatmap(input_df, input_y, input_color, input_color_theme):
         strokeWidth=alt.value(0.25),
     ).properties(
         width=400,
-        height=chart_height
+        height=chart_height  
     ).configure_axis(
         labelFontSize=12,
         titleFontSize=12
     )
     return heatmap
 
+heatmap = make_heatmap(grouped_10, 'คณะที่คุณกำลังศึกษา', 'จำนวนนักศึกษา', 'reds')
+
+col = st.columns(2) 
 
 with col[0]:
     st.altair_chart(chart2, use_container_width=True)
@@ -309,6 +313,6 @@ with col[1]:
     st.altair_chart(chart6, use_container_width=True)
     st.altair_chart(chart8, use_container_width=True)
     st.altair_chart(chart9, use_container_width=True)
-    heatmap = make_heatmap(grouped_10, 'คณะที่คุณกำลังศึกษา', 'จำนวนนักศึกษา', 'Blues')
     st.altair_chart(heatmap, use_container_width=True)
+
 
