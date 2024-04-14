@@ -25,7 +25,7 @@ st.set_page_config(
 
 alt.themes.enable("dark")
 
-col = st.columns((1.5, 4.5, 2), gap='medium')
+col = st.columns((6, 18, 4), gap='medium')
 
 with col[0]:
 
