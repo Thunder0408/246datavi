@@ -9,8 +9,6 @@ Original file is located at
 # Import Library And Font
 """
 
-!pip install pythainlp
-
 import gspread
 import pandas as pd
 import numpy as np
