@@ -86,11 +86,7 @@ df
 
 """# Install Dashboard"""
 
-pip install streamlit-shadcn-ui
 
-pip install streamlit-extras
-
-pip install streamlit-elements==0.1.*
 
 data = df['อะไรคือปัจจัยสำคัญของคุณในการตัดสินใจเลือกใช้จ่ายสินค้าและบริการ']
 text = ''
