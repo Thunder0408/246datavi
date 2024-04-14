@@ -9,11 +9,6 @@ Original file is located at
 # Import Library And Font
 """
 
-from wordcloud import WordCloud
-from pythainlp.tokenize import word_tokenize # เป็นตัวตัดคำของภาษาไทย
-from pythainlp.corpus import thai_stopwords # เป็นคลัง Stop Words ของภาษาไทย
-from collections import Counter
-import random
 
 mpl.font_manager.fontManager.addfont('thsarabunnew-webfont.ttf')
 mpl.rc('font', family='TH Sarabun New')
@@ -23,8 +18,6 @@ font = fm.FontProperties(fname=font_path, size=16)
 
 """#Import csv"""
 
-from google.colab import drive
-drive.mount('/content/drive')
 
 df = pd.read_csv('/content/drive/MyDrive/แบบสำรวจพฤติกรรมการใช้จ่ายของนักศึกษามหาวิทยาลัยธรรมศาสตร์.csv')
 # Code for making the first row as header. Remove if not needed.
