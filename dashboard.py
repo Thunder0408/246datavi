@@ -108,11 +108,6 @@ df
 
 """# Install Dashboard"""
 
-pip install streamlit-shadcn-ui
-
-pip install streamlit-extras
-
-pip install streamlit-elements==0.1.*
 
 """# 1. แผนภูมิโดนัท แสดงแนวโน้มสัดส่วนประชากรผู้ตอบแบบสอบถาม โดยแบ่งตามแต่ละชั้นปี คณะ และเพศ
 
