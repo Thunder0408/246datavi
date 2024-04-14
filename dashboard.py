@@ -9,7 +9,6 @@ Original file is located at
 # Import Library And Font
 """
 
-import gspread
 import pandas as pd
 import numpy as np
 import seaborn as sns
