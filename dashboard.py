@@ -144,10 +144,46 @@ chart5 = alt.Chart(filtered_data_3_3).mark_bar().encode(
     title='แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 3 ของนักศึกษาในมหาวิทยาลัย'
 )
 
+# นับจำนวนข้อมูลในแต่ละกลุ่มของคอลัมน์ 'คุณเป็นนักศึกษาชั้นปีที่' และ 'คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?'
+grouped_6 = df.groupby(["คุณเป็นนักศึกษาชั้นปีที่", "คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?"]).size().reset_index(name="จำนวนนักศึกษา")
+
+# สร้าง dictionary เพื่อกำหนดลำดับใหม่สำหรับชั้นปีของนักศึกษา
+reorder_map = {
+    "ชั้นปีที่ 1": 0,
+    "ชั้นปีที่ 2": 1,
+    "ชั้นปีที่ 3": 2,
+    "ชั้นปีที่ 4": 3,
+    "ชั้นปีที่ 5-8": 4
+}
+
+# รวมชั้นปีที่ 5 ถึง 8 เป็นชั้นปีที่ 5-8
+grouped_6['คุณเป็นนักศึกษาชั้นปีที่'] = grouped_6['คุณเป็นนักศึกษาชั้นปีที่'].replace(['ชั้นปีที่ 5', 'ชั้นปีที่ 6', 'ชั้นปีที่ 7', 'ชั้นปีที่ 8'], 'ชั้นปีที่ 5-8')
+
+# นับจำนวนนักศึกษาใหม่โดยรวมชั้นปีที่ 5-8
+grouped_6 = grouped_6.groupby(["คุณเป็นนักศึกษาชั้นปีที่", "คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?"]).agg({'จำนวนนักศึกษา': 'sum'}).reset_index()
+
+# เพิ่มคอลัมน์ลำดับใหม่โดยใช้ dictionary reorder_map
+grouped_6["ลำดับ"] = grouped_6["คุณเป็นนักศึกษาชั้นปีที่"].map(reorder_map)
+
+# เรียงลำดับตามคอลัมน์ "ลำดับ" และลบคอลัมน์ "ลำดับ" ออก
+grouped_6 = grouped_6.sort_values(by="ลำดับ").drop(columns=["ลำดับ"])
+
+# สร้างแผนภูมิแท่งด้วย Altair
+chart6 = alt.Chart(grouped_6).mark_bar().encode(
+    x=alt.X('sum(จำนวนนักศึกษา):Q', title='จำนวนนักศึกษา (คน)'),
+    y=alt.Y('คุณเป็นนักศึกษาชั้นปีที่:N', title='ชั้นปี'),
+    color=alt.Color('คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?:N', legend=alt.Legend(title='ค่าใช้จ่ายเฉลี่ยต่อวัน')),
+    tooltip=['คุณเป็นนักศึกษาชั้นปีที่', 'คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?', 'sum(จำนวนนักศึกษา)']
+).properties(
+    width=700,
+    height=400,
+    title='จำนวนนักศึกษาในแต่ละชั้นปีตามค่าใช้จ่ายเฉลี่ยต่อวัน'
+)
+
 with col[0]:
     st.altair_chart(chart2, use_container_width=True)
     st.altair_chart(chart3, use_container_width=True)
     st.altair_chart(chart4, use_container_width=True)
     st.altair_chart(chart5, use_container_width=True)
 with col[1]:
-    st.altair_chart(chart4, use_container_width=True)
+    st.altair_chart(chart6, use_container_width=True)
