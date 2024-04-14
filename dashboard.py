@@ -118,9 +118,36 @@ chart4 = alt.Chart(filtered_data_3_2).mark_bar().encode(
     title='แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 2 ของนักศึกษาในมหาวิทยาลัย'
 )
 
+# นับจำนวนข้อมูลในแต่ละกลุ่มโดยใช้ groupby และ size
+grouped_3_3 = df.groupby(["ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุดอันดับที่ 3", "เพศ"]).size().reset_index(name="จำนวนนักศึกษา")
+
+# เพิ่มคอลัมน์ลำดับใหม่โดยใช้ค่าจากคอลัมน์ 'ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุดอันดับที่ 3'
+grouped_3_3["ลำดับ"] = grouped_3_3["ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุดอันดับที่ 3"]
+
+# เรียงลำดับข้อมูลตามคอลัมน์ "ลำดับ" และลบคอลัมน์ "ลำดับ" ออก
+grouped_3_3 = grouped_3_3.sort_values(by="ลำดับ").drop(columns=["ลำดับ"])
+
+import altair as alt
+
+# กรองข้อมูลเพื่อเอาแต่ละแถวที่ไม่มีค่าใช้จ่ายในอันดับที่สามออก
+filtered_data_3_3 = grouped_3_3[grouped_3_3["ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุดอันดับที่ 3"] != "ไม่มีค่าใช้จ่ายในอันดับนี้"]
+
+# สร้างแผนภูมิแท่งด้วย Altair
+chart5 = alt.Chart(filtered_data_3_3).mark_bar().encode(
+    x=alt.X('sum(จำนวนนักศึกษา):Q', title='จำนวนนักศึกษา'),
+    y=alt.Y('เพศ:N', title='เพศของนักศึกษา'),
+    color=alt.Color('ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุดอันดับที่ 3:N', legend=alt.Legend(title='หมวดหมู่ค่าใช้จ่าย')),
+    tooltip=['เพศ', 'ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุดอันดับที่ 3', 'sum(จำนวนนักศึกษา)']
+).properties(
+    width=700,
+    height=400,
+    title='แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 3 ของนักศึกษาในมหาวิทยาลัย'
+)
+
 with col[0]:
     st.altair_chart(chart2, use_container_width=True)
     st.altair_chart(chart3, use_container_width=True)
     st.altair_chart(chart4, use_container_width=True)
+    st.altair_chart(chart5, use_container_width=True)
 with col[1]:
     st.altair_chart(chart4, use_container_width=True)
