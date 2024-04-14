@@ -9,12 +9,6 @@ Original file is located at
 # Import Library And Font
 """
 
-!wget -q https://github.com/Phonbopit/sarabun-webfont/raw/master/fonts/thsarabunnew-webfont.ttf
-
-!wget -q https://github.com/google/fonts/blob/main/ofl/chonburi/Chonburi-Regular.ttf
-
-!pip install pythainlp
-
 import gspread
 import pandas as pd
 import numpy as np
@@ -114,11 +108,6 @@ df
 
 """# Install Dashboard"""
 
-pip install streamlit-shadcn-ui
-
-pip install streamlit-extras
-
-pip install streamlit-elements==0.1.*
 
 data = df['อะไรคือปัจจัยสำคัญของคุณในการตัดสินใจเลือกใช้จ่ายสินค้าและบริการ']
 text = ''
