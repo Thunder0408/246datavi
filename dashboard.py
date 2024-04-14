@@ -26,7 +26,7 @@ st.set_page_config(
 
 alt.themes.enable("dark")
 
-col = st.columns((90, 27, 6), gap='medium')
+col = st.columns((30, 9, 3), gap='medium')
 
 # กำหนดค่าที่ต้องการเปลี่ยนใน column 'คุณเป็นนักศึกษาชั้นปีที่'
 replace_values = {'ชั้นปีที่ 1': 'ชั้นปีที่ 1',
