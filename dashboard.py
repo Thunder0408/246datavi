@@ -69,8 +69,6 @@ chart2 = alt.Chart(df_new).mark_bar().encode(
     title='แนวโน้มรายได้ต่อเดือนของนักศึกษา โดยแบ่งตามชั้นปีที่ศึกษา'
 )
 
-# แสดงกราฟ
-chart2.display()
 
 with col[0]:
   st.altair_chart(chart2, use_container_width=True)
