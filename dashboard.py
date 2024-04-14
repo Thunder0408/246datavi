@@ -119,7 +119,8 @@ chart4 = alt.Chart(filtered_data_3_2).mark_bar().encode(
 )
 
 with col[0]:
-  st.altair_chart(chart2, use_container_width=True)
-  st.altair_chart(chart3, use_container_width=True)
+    st.altair_chart(chart2, use_container_width=True)
+    st.altair_chart(chart3, use_container_width=True)
+    st.altair_chart(chart4, use_container_width=True)
 with col[1]:
-  st.altair_chart(chart4, use_container_width=True)
+    st.altair_chart(chart4, use_container_width=True)
