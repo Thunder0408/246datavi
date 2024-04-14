@@ -13,7 +13,6 @@ url = 'https://drive.google.com/file/d/1QPBjNIxIwrMsOpTBQbvquOPyCWbbtkqF/view?us
 csv_url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
 df = pd.read_csv(csv_url, on_bad_lines='skip')
 
-"""# Install Dashboard"""
 
 import streamlit as st
 import pandas as pd
