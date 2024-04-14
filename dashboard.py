@@ -239,6 +239,45 @@ chart8 = alt.Chart(df).mark_bar().encode(
     title='แผนภูมิแท่ง แสดงการเปรียบเทียบประเภทค่าใช้จ่ายส่วนที่มากที่สุดกับปริมาณค่าใช้จ่ายที่ในส่วนนั้น'
 )
 
+# ข้อมูลการใช้จ่ายของนักศึกษาแบ่งตามสถานที่พัก
+data_9 = {
+    'หอพัก': [6, 15, 1, 0, 0, 0, 0],  # น้อยกว่า 500, 500-1500, 1501-2500, 2501-3500, 3501-4500, 4501-5500 ,มากกว่า 5500
+    'หอนอก': [14, 9, 6, 1, 1, 1, 0],
+    'คอนโด': [3, 1, 5, 0, 1, 0, 0],
+    'บ้าน': [5, 8, 1, 5, 1, 2, 0]
+}
+
+# กำหนดช่วงการใช้จ่าย
+categories_9 = ['น้อยกว่า 500', '500-1500', '1501-2500', '2501-3500', '3501-4500','4501-5500','มากกว่า 5500']
+
+# สร้าง DataFrame จากข้อมูลที่มีอยู่
+data = {
+    'ช่วงการใช้จ่าย': categories_9,
+    'หอพัก': data_9['หอพัก'],
+    'หอนอก': data_9['หอนอก'],
+    'คอนโด': data_9['คอนโด'],
+    'บ้าน': data_9['บ้าน']
+}
+df = pd.DataFrame(data)
+
+# ปรับรูปแบบ DataFrame ให้เหมาะสมกับการพล็อตแบบ stacked bar chart
+df = df.melt('ช่วงการใช้จ่าย', var_name='สถานที่พัก', value_name='จำนวนคน')
+
+# สร้างกราฟ
+chart9 = alt.Chart(df).mark_bar().encode(
+    x=alt.X('ช่วงการใช้จ่าย:N', title='ช่วงการใช้จ่าย'),
+    y=alt.Y('จำนวนคน:Q', title='จำนวนคน'),
+    color='สถานที่พัก:N',
+    order=alt.Order(
+      'สถานที่พัก:N',
+      sort='ascending'
+    )
+).properties(
+    width=600,
+    height=400,
+    title='ผลของสถานที่พักต่อการใช้จ่ายของนักศึกษา'
+)
+
 with col[0]:
     st.altair_chart(chart2, use_container_width=True)
     st.altair_chart(chart3, use_container_width=True)
@@ -247,3 +286,4 @@ with col[0]:
 with col[1]:
     st.altair_chart(chart6, use_container_width=True)
     st.altair_chart(chart8, use_container_width=True)
+    st.altair_chart(chart9, use_container_width=True)
