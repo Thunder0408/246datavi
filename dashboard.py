@@ -345,15 +345,12 @@ chart9 = alt.Chart(df).mark_bar().encode(
 
 with col[0]:
     st.altair_chart(combined_donut, use_container_width=True)
-
-with col[1]:
     st.altair_chart(chart2, use_container_width=True)
     st.altair_chart(chart3_1, use_container_width=True)
     st.altair_chart(chart3_2, use_container_width=True)
     st.altair_chart(chart3_3, use_container_width=True)
-    
-with col[2]:
     st.altair_chart(chart6, use_container_width=True)
     st.altair_chart(chart8, use_container_width=True)
     st.altair_chart(chart9, use_container_width=True)
+
 
