@@ -170,7 +170,7 @@ chart3_1 = alt.Chart(filtered_data_3_1).mark_bar().encode(
 ).properties(
     width=700,
     height=400,
-    title='4.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 1 ของนักศึกษาในมหาวิทยาลัย'
+    title='5.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 1 ของนักศึกษาในมหาวิทยาลัย'
 )
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มโดยใช้ groupby และ size
@@ -195,7 +195,7 @@ chart3_2 = alt.Chart(filtered_data_3_2).mark_bar().encode(
 ).properties(
     width=700,
     height=400,
-    title='5.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 2 ของนักศึกษาในมหาวิทยาลัย'
+    title='6.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 2 ของนักศึกษาในมหาวิทยาลัย'
 )
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มโดยใช้ groupby และ size
@@ -219,7 +219,7 @@ chart3_3 = alt.Chart(filtered_data_3_3).mark_bar().encode(
 ).properties(
     width=700,
     height=400,
-    title='6.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 3 ของนักศึกษาในมหาวิทยาลัย'
+    title='7.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 3 ของนักศึกษาในมหาวิทยาลัย'
 )
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มของคอลัมน์ 'คุณเป็นนักศึกษาชั้นปีที่' และ 'คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?'
@@ -379,11 +379,44 @@ text = heatmap.mark_text(baseline='middle').encode(
 # รวม Heatmap และ Text Layer เข้าด้วยกัน
 chart9 = heatmap + text
 
+# สร้าง dictionary เพื่อกำหนดลำดับใหม่สำหรับจำนวนเงินที่ใช้จ่าย
+reorder_income_map = [
+    "น้อยกว่า 50 บาท",
+    "50 - 100 บาท",
+    "101 - 200 บาท",
+    "201 - 300 บาท",
+    "มากกว่า 300 บาท"
+]
+# นับจำนวนข้อมูลในแต่ละกลุ่มของนักศึกษาตามสถานที่พักอาศัย, และคุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?
+grouped_9 = df.groupby(["สถานที่พักอาศัย", "คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?"]).size().reset_index(name="จำนวนนักศึกษา")
+
+# สร้าง Heatmap
+heatmap = alt.Chart(grouped_9).mark_rect().encode(
+    x= alt.X('คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?:O', sort=reorder_income_map),
+    y= alt.Y('สถานที่พักอาศัย:O'),
+    color='จำนวนนักศึกษา:Q',
+    tooltip=['สถานที่พักอาศัย', 'คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?', 'จำนวนนักศึกษา']
+).properties(
+    title='4.Heatmap แสดงการเปรียบเทียบสถานที่พักอาศัยกับค่าใช้จ่ายโดยเฉลี่ยในรายวัน',
+    width=600,
+    height=400
+)
+
+# สร้าง Text Layer สำหรับแสดงข้อความบนแต่ละ cell ของ Heatmap
+text = heatmap.mark_text(baseline='middle').encode(
+    text='จำนวนนักศึกษา:Q',
+    color=alt.value('black')
+)
+
+# รวม Heatmap และ Text Layer เข้าด้วยกัน
+chart4 = heatmap + text
+
 
 with col[0]:
     st.altair_chart(combined_donut, use_container_width=True)
     st.altair_chart(chart2, use_container_width=True)
     st.altair_chart(chart6, use_container_width=True)
+    st.altair_chart(chart4, use_container_width=True)
     st.altair_chart(chart3_1, use_container_width=True)
     st.altair_chart(chart3_2, use_container_width=True)
     st.altair_chart(chart3_3, use_container_width=True)
