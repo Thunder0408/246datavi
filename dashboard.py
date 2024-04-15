@@ -28,6 +28,54 @@ alt.themes.enable("dark")
 
 col = st.columns((30, 9, 3), gap='medium')
 
+# นับจำนวนข้อมูลในแต่ละกลุ่มของนักศึกษาตามชั้นปีและคณะที่ศึกษา
+grouped = df.groupby(["คุณเป็นนักศึกษาชั้นปีที่", "คณะที่คุณกำลังศึกษา"]).size().reset_index(name="จำนวนนักศึกษา")
+
+# สร้าง dictionary เพื่อเก็บลำดับใหม่ของชั้นปี
+reorder_map = {
+    "ชั้นปีที่ 1": 0,
+    "ชั้นปีที่ 2": 1,
+    "ชั้นปีที่ 3": 2,
+    "ชั้นปีที่ 4": 3,
+    "ชั้นปีที่ 5-8": 4
+}
+
+# รวมชั้นปีที่ 5 ถึง 8 เป็นกลุ่มเดียวกัน
+grouped['คุณเป็นนักศึกษาชั้นปีที่'] = grouped['คุณเป็นนักศึกษาชั้นปีที่'].replace(['ชั้นปีที่ 5', 'ชั้นปีที่ 6', 'ชั้นปีที่ 7', 'ชั้นปีที่ 8'], 'ชั้นปีที่ 5-8')
+
+# นับจำนวนนักศึกษาใหม่ตามกลุ่มที่รวมแล้ว
+grouped = grouped.groupby(["คุณเป็นนักศึกษาชั้นปีที่", "คณะที่คุณกำลังศึกษา"]).agg({'จำนวนนักศึกษา': 'sum'}).reset_index()
+
+# เพิ่มคอลัมน์ลำดับใหม่โดยใช้ dictionary ที่สร้างขึ้น
+grouped["ลำดับ"] = grouped["คุณเป็นนักศึกษาชั้นปีที่"].map(reorder_map)
+
+# เรียงลำดับตามคอลัมน์ "ลำดับ" และลบคอลัมน์ "ลำดับ" ออก
+grouped = grouped.sort_values(by="ลำดับ").drop(columns=["ลำดับ"])
+
+# นับจำนวนข้อมูลในแต่ละกลุ่มของนักศึกษาตามชั้นปี, เพศ, และคณะที่ศึกษา
+grouped2 = df.groupby(["คุณเป็นนักศึกษาชั้นปีที่", "เพศ", "คณะที่คุณกำลังศึกษา"]).size().reset_index(name="จำนวนนักศึกษา")
+
+# สร้าง dictionary เพื่อเก็บลำดับใหม่ของชั้นปี
+reorder_map = {
+    "ชั้นปีที่ 1": 0,
+    "ชั้นปีที่ 2": 1,
+    "ชั้นปีที่ 3": 2,
+    "ชั้นปีที่ 4": 3,
+    "ชั้นปีที่ 5-8": 4
+}
+
+# รวมชั้นปีที่ 5 ถึง 8 เป็นกลุ่มเดียวกัน
+grouped2['คุณเป็นนักศึกษาชั้นปีที่'] = grouped2['คุณเป็นนักศึกษาชั้นปีที่'].replace(['ชั้นปีที่ 5', 'ชั้นปีที่ 6', 'ชั้นปีที่ 7', 'ชั้นปีที่ 8'], 'ชั้นปีที่ 5-8')
+
+# นับจำนวนนักศึกษาใหม่ตามกลุ่มที่รวมแล้ว
+grouped2 = grouped2.groupby(["คุณเป็นนักศึกษาชั้นปีที่", "เพศ","คณะที่คุณกำลังศึกษา"]).agg({'จำนวนนักศึกษา': 'sum'}).reset_index()
+
+# เพิ่มคอลัมน์ลำดับใหม่โดยใช้ dictionary ที่สร้างขึ้น
+grouped2["ลำดับ"] = grouped2["คุณเป็นนักศึกษาชั้นปีที่"].map(reorder_map)
+
+# เรียงลำดับตามคอลัมน์ "ลำดับ" และลบคอลัมน์ "ลำดับ" ออก
+grouped2 = grouped2.sort_values(by="ลำดับ").drop(columns=["ลำดับ"])
+
 # กำหนดค่าที่ต้องการเปลี่ยนใน column 'คุณเป็นนักศึกษาชั้นปีที่'
 replace_values = {'ชั้นปีที่ 1': 'ชั้นปีที่ 1',
                   'ชั้นปีที่ 2': 'ชั้นปีที่ 2',
@@ -38,6 +86,23 @@ replace_values = {'ชั้นปีที่ 1': 'ชั้นปีที่ 
                   'ชั้นปีที่ 7': 'ชั้นปีที่ 5-8',
                   'ชั้นปีที่ 8': 'ชั้นปีที่ 5-8'
                   }
+
+donut1 = alt.Chart(grouped2).mark_arc(innerRadius=150, outerRadius=200).encode(
+    theta= "count()",
+    color="คุณเป็นนักศึกษาชั้นปีที่:N",
+)
+
+donut2 = alt.Chart(grouped2).mark_arc(innerRadius=100, outerRadius=150).encode(
+    theta= "count()",
+    color="คณะที่คุณกำลังศึกษา:N",
+)
+
+donut3 = alt.Chart(grouped2).mark_arc(innerRadius=50, outerRadius=100).encode(
+    theta= "count()",
+    color="เพศ:N",
+)
+
+combined_donut = alt.layer(donut1, donut2, donut3).resolve_scale(color='independent')
 
 # เปลี่ยนค่าใน column 'คุณเป็นนักศึกษาชั้นปีที่' ใน DataFrame ใหม่
 df_new = df.replace({'คุณเป็นนักศึกษาชั้นปีที่': replace_values})
@@ -279,6 +344,7 @@ chart9 = alt.Chart(df).mark_bar().encode(
 )
 
 with col[0]:
+    st.altair_chart(combined_donut, use_container_width=True)
     st.altair_chart(chart2, use_container_width=True)
     st.altair_chart(chart3_1, use_container_width=True)
     st.altair_chart(chart3_2, use_container_width=True)
