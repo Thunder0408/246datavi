@@ -420,6 +420,5 @@ with col[0]:
     st.altair_chart(chart3_1, use_container_width=True)
     st.altair_chart(chart3_2, use_container_width=True)
     st.altair_chart(chart3_3, use_container_width=True)
-    st.altair_chart(chart8, use_container_width=True)
     st.altair_chart(chart9, use_container_width=True)
 
