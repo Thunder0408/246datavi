@@ -170,7 +170,7 @@ chart3_1 = alt.Chart(filtered_data_3_1).mark_bar().encode(
 ).properties(
     width=700,
     height=400,
-    title='3.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 1 ของนักศึกษาในมหาวิทยาลัย'
+    title='4.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 1 ของนักศึกษาในมหาวิทยาลัย'
 )
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มโดยใช้ groupby และ size
@@ -195,7 +195,7 @@ chart3_2 = alt.Chart(filtered_data_3_2).mark_bar().encode(
 ).properties(
     width=700,
     height=400,
-    title='4.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 2 ของนักศึกษาในมหาวิทยาลัย'
+    title='5.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 2 ของนักศึกษาในมหาวิทยาลัย'
 )
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มโดยใช้ groupby และ size
@@ -219,7 +219,7 @@ chart3_3 = alt.Chart(filtered_data_3_3).mark_bar().encode(
 ).properties(
     width=700,
     height=400,
-    title='5.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 3 ของนักศึกษาในมหาวิทยาลัย'
+    title='6.แผนภูมิแท่ง แสดงการเปรียบเทียบเพศกับค่าใช้จ่ายโดยรวมอันดับ 3 ของนักศึกษาในมหาวิทยาลัย'
 )
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มของคอลัมน์ 'คุณเป็นนักศึกษาชั้นปีที่' และ 'คุณใช้จ่ายเงินเฉลี่ยเท่าไหร่ต่อวันในมหาวิทยาลัย ?'
@@ -255,7 +255,7 @@ chart6 = alt.Chart(grouped_6).mark_bar().encode(
 ).properties(
     width=700,
     height=400,
-    title='6.จำนวนนักศึกษาในแต่ละชั้นปีตามค่าใช้จ่ายเฉลี่ยต่อวัน'
+    title='3.จำนวนนักศึกษาในแต่ละชั้นปีตามค่าใช้จ่ายเฉลี่ยต่อวัน'
 )
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มของคอลัมน์ 'ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุดอันดับที่ 1' และ 'จากตัวเลือกข้างต้นที่คุณเลือกเป็นอันดับ 1 คุณใช้จ่ายในส่วนนี้ไปประมาณเท่าไหร่ต่อเดือน ?'
@@ -383,10 +383,10 @@ chart9 = heatmap + text
 with col[0]:
     st.altair_chart(combined_donut, use_container_width=True)
     st.altair_chart(chart2, use_container_width=True)
+    st.altair_chart(chart6, use_container_width=True)
     st.altair_chart(chart3_1, use_container_width=True)
     st.altair_chart(chart3_2, use_container_width=True)
     st.altair_chart(chart3_3, use_container_width=True)
-    st.altair_chart(chart6, use_container_width=True)
     st.altair_chart(chart8, use_container_width=True)
     st.altair_chart(chart9, use_container_width=True)
 
