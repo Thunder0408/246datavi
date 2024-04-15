@@ -291,10 +291,10 @@ data = {
     'จำนวนนักศึกษา': grouped_df_8["จำนวนนักศึกษา"].tolist(),
     'ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุด': grouped_df_8["ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุด"].tolist()
 }
-df = pd.DataFrame(data)
+df2 = pd.DataFrame(data)
 
 # สร้างกราฟ
-chart8 = alt.Chart(df).mark_bar().encode(
+chart8 = alt.Chart(df2).mark_bar().encode(
     y=alt.Y('คุณใช้จ่ายในส่วนนี้ไปประมาณเท่าไหร่ต่อเดือน ?:N', title='ค่าใช้จ่ายโดยประมาณต่อหนึ่งเดือน'),
     x=alt.X('จำนวนนักศึกษา:Q', title='จำนวนนักศึกษา (คน)'),
     color='ในหนึ่งเดือนคุณใช้เงินในส่วนใดมากที่สุด:N',
@@ -327,13 +327,13 @@ data = {
     'คอนโด': data_9['คอนโด'],
     'บ้าน': data_9['บ้าน']
 }
-df = pd.DataFrame(data)
+df3 = pd.DataFrame(data)
 
 # ปรับรูปแบบ DataFrame ให้เหมาะสมกับการพล็อตแบบ stacked bar chart
-df = df.melt('ช่วงการใช้จ่าย', var_name='สถานที่พัก', value_name='จำนวนคน')
+df3 = df.melt('ช่วงการใช้จ่าย', var_name='สถานที่พัก', value_name='จำนวนคน')
 
 # สร้างกราฟ
-chart9 = alt.Chart(df).mark_bar().encode(
+chart9 = alt.Chart(df3).mark_bar().encode(
     y=alt.Y('ช่วงการใช้จ่าย:N', title='ช่วงการใช้จ่าย'),
     x=alt.X('จำนวนคน:Q', title='จำนวนคน'),
     color='สถานที่พัก:N',
