@@ -305,10 +305,6 @@ def make_heatmap(input_df, input_y, input_color, input_color_theme):
 # Create the heatmap
 heatmap = make_heatmap(grouped_10, 'คณะที่คุณกำลังศึกษา', 'จำนวนนักศึกษา', 'Blues')
 
-# Streamlit layout
-col = st.columns(2)  # Assuming you have two columns set up already
-
-
 with col[0]:
     st.altair_chart(chart2, use_container_width=True)
     st.altair_chart(chart3_1, use_container_width=True)
