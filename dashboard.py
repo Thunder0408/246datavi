@@ -104,8 +104,8 @@ donut3 = alt.Chart(grouped2).mark_arc(innerRadius=50, outerRadius=100).encode(
 
 # รวม donut
 combined_donut = alt.layer(donut1, donut2, donut3).resolve_scale(color='independent').properties(
-    width=350,
-    height=200,
+    width=1024,
+    height=768,
     title='แนวโน้มสัดส่วนประชากรผู้ตอบแบบสอบถามในแต่ละชั้นปี')
 
 # เปลี่ยนค่าใน column 'คุณเป็นนักศึกษาชั้นปีที่' ใน DataFrame ใหม่
