@@ -26,7 +26,7 @@ st.set_page_config(
 
 alt.themes.enable("dark")
 
-col = st.columns((30, 9, 3), gap='medium')
+col = st.columns((30, 9, 4), gap='medium')
 
 # นับจำนวนข้อมูลในแต่ละกลุ่มของนักศึกษาตามชั้นปีและคณะที่ศึกษา
 grouped = df.groupby(["คุณเป็นนักศึกษาชั้นปีที่", "คณะที่คุณกำลังศึกษา"]).size().reset_index(name="จำนวนนักศึกษา")
