@@ -8,10 +8,14 @@ Original file is located at
 """
 
 import pandas as pd
+import streamlit
 
 url = 'https://drive.google.com/file/d/1QPBjNIxIwrMsOpTBQbvquOPyCWbbtkqF/view?usp=sharing'
 csv_url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
-df = pd.read_csv(csv_url, on_bad_lines='skip')
+file_path = "/Users/techit/Documents/CS246/Dashboard/finance.csv"
+df = pd.read_csv(file_path , on_bad_lines='skip')
+
+
 
 
 import streamlit as st
@@ -417,13 +421,80 @@ text = heatmap.mark_text(baseline='middle').encode(
 chart4 = heatmap + text
 
 
-with col[0]:
-    st.altair_chart(combined_donut, use_container_width=True)
-    st.altair_chart(chart2, use_container_width=True)
-    st.altair_chart(chart6, use_container_width=True)
-    st.altair_chart(chart4, use_container_width=True)
-    st.altair_chart(chart3_1, use_container_width=True)
-    st.altair_chart(chart3_2, use_container_width=True)
-    st.altair_chart(chart3_3, use_container_width=True)
-    st.altair_chart(chart9, use_container_width=True)
+import streamlit as st
 
+# Insert custom CSS to change sidebar color
+st.markdown(
+    """
+    <style>
+    .sidebar .sidebar-content {
+        background-color: #FF5733;  /* Change the color to your preference */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.sidebar.title("พฤติกรรมการใช้จ่ายของนักศึกษามหาวิทยาลัยธรรมศาสตร์")
+
+# Widget for selecting the chart with a title
+selected_chart = st.sidebar.selectbox("Select Chart:", 
+                                       ["ประชากรผู้ตอบแบบสอบถาม", 
+                                        "รายได้ต่อเดือน", 
+                                        "ค่าใช่จ่ายเฉลี่ยต่อวัน",
+                                        "เปรียบเทียบสถานที่พักกับค่าใช้จ่าย", 
+                                        "เปรียบเทียบเพศกับค่าใช้จ่ายอันดับ1", 
+                                        "เปรียบเทียบเพศกับค่าใช้จ่ายอันดับ2", 
+                                        "เปรียบเทียบเพศกับค่าใช้จ่ายอันดับ3",
+                                        "เปรียบเทียบค่าใช้จ่ายในส่วนที่มากสุด"])
+
+
+# Define the layout of the charts within a single row
+col1, col2, col3 = st.columns([1, 4, 1])
+
+# Empty column on the left
+with col1:
+    pass
+
+# Chart for the middle column
+with col2:
+    if selected_chart == "ประชากรผู้ตอบแบบสอบถาม":
+        st.altair_chart(combined_donut, use_container_width=True)
+    elif selected_chart == "รายได้ต่อเดือน":
+        st.altair_chart(chart2, use_container_width=True)
+    elif selected_chart == "ค่าใช่จ่ายเฉลี่ยต่อวัน":
+        st.altair_chart(chart6, use_container_width=True)
+    elif selected_chart == "เปรียบเทียบสถานที่พักกับค่าใช้จ่าย":
+        st.altair_chart(chart4, use_container_width=True)
+    elif selected_chart == "เปรียบเทียบเพศกับค่าใช้จ่ายอันดับ1":
+        st.altair_chart(chart3_1, use_container_width=True)
+    elif selected_chart == "เปรียบเทียบเพศกับค่าใช้จ่ายอันดับ2":
+        st.altair_chart(chart3_2, use_container_width=True)
+    elif selected_chart == "เปรียบเทียบเพศกับค่าใช้จ่ายอันดับ3":
+        st.altair_chart(chart3_3, use_container_width=True)
+    elif selected_chart == "เปรียบเทียบค่าใช้จ่ายในส่วนที่มากสุด":
+        st.altair_chart(chart9, use_container_width=True)
+    
+    
+
+# Empty column on the right
+with col3:
+    pass
+
+# Define the layout of the charts within two rows
+col2_top, col2_bottom = st.columns(2)
+
+# Charts for the top row of col2
+with col2_top:
+    st.altair_chart(chart2, use_container_width=True)
+    st.altair_chart(chart4, use_container_width=True)
+    st.altair_chart(chart3_2, use_container_width=True)
+
+# Charts for the bottom row of col2
+with col2_bottom:
+    st.altair_chart(chart6, use_container_width=True)
+    st.altair_chart(chart3_1, use_container_width=True)
+    st.altair_chart(chart3_3, use_container_width=True)
+
+# Chart at the center bottom
+st.altair_chart(chart9, use_container_width=True)
