@@ -12,8 +12,7 @@ import streamlit
 
 url = 'https://drive.google.com/file/d/1QPBjNIxIwrMsOpTBQbvquOPyCWbbtkqF/view?usp=sharing'
 csv_url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
-file_path = "/Users/techit/Documents/CS246/Dashboard/finance.csv"
-df = pd.read_csv(file_path , on_bad_lines='skip')
+df = pd.read_csv(csv_url, on_bad_lines='skip')
 
 
 
