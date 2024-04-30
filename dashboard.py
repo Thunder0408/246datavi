@@ -12,6 +12,12 @@ import streamlit
 
 import numpy as np
 import seaborn as sns
+import matplotlib
+import matplotlib as mpl
+import matplotlib.ticker as mtick
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+import matplotlib.patheffects as pe
 
 url = 'https://drive.google.com/file/d/1QPBjNIxIwrMsOpTBQbvquOPyCWbbtkqF/view?usp=sharing'
 csv_url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
