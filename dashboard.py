@@ -10,6 +10,8 @@ Original file is located at
 import pandas as pd
 import streamlit
 
+import gspread
+import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib
@@ -18,6 +20,16 @@ import matplotlib.ticker as mtick
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import matplotlib.patheffects as pe
+from mpl_toolkits import mplot3d
+from mpl_toolkits.mplot3d import Axes3D
+from google.auth import default
+from google.colab import auth
+import matplotlib.font_manager as fm
+from wordcloud import WordCloud
+from pythainlp.tokenize import word_tokenize # เป็นตัวตัดคำของภาษาไทย
+from pythainlp.corpus import thai_stopwords # เป็นคลัง Stop Words ของภาษาไทย
+from collections import Counter
+import random
 
 url = 'https://drive.google.com/file/d/1QPBjNIxIwrMsOpTBQbvquOPyCWbbtkqF/view?usp=sharing'
 csv_url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
