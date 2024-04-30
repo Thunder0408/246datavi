@@ -10,6 +10,9 @@ Original file is located at
 import pandas as pd
 import streamlit
 
+import numpy as np
+import seaborn as sns
+
 url = 'https://drive.google.com/file/d/1QPBjNIxIwrMsOpTBQbvquOPyCWbbtkqF/view?usp=sharing'
 csv_url = 'https://drive.google.com/uc?id=' + url.split('/')[-2]
 df = pd.read_csv(csv_url, on_bad_lines='skip')
